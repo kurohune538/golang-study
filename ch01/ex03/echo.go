@@ -1,3 +1,4 @@
+// 何故か表示されない
 package main
 
 import (
@@ -5,7 +6,6 @@ import (
 	"strings"
 	"time"
 )
-
 
 func main() {
 	var num int = 10
@@ -18,9 +18,9 @@ func main() {
 	fmt.Print(end)
 
 	start2 := time.Now()
-	ss := []string{} 
+	ss := []string{}
 	for i := 1; i < num; i++ {
-		strings.Join(ss,"s")
+		strings.Join(ss, "s")
 	}
 	end2 := time.Since(start2).Seconds()
 	fmt.Sprintf("%d秒", end2)
