@@ -12,7 +12,11 @@ import (
 	"time"
 )
 
-var palette = []color.Color{color.White, color.Black}
+var palette = []color.Color{
+	color.Black,
+	color.RGBA{255, 0, 0, 1},
+	color.RGBA{0, 0, 255, 1},
+	color.RGBA{0, 255, 0, 1}}
 
 const (
 	whiteIndex = 0 //パレットの最初の色
@@ -26,11 +30,11 @@ func main() {
 
 func lissajous(out io.Writer) {
 	const (
-		cycles = 5 // 発振器ｘが完了する周回の回数
-		res = 0.001 // 回転の分解能
-		size = 100 // 画像キャンバスは [-size..+size]の範囲を扱う
-		nframes = 64 // アニメーションフレーム数
-		delay = 8 // 10ms単位でのフレーム間の遅延
+		cycles  = 5     // 発振器ｘが完了する周回の回数
+		res     = 0.001 // 回転の分解能
+		size    = 100   // 画像キャンバスは [-size..+size]の範囲を扱う
+		nframes = 64    // アニメーションフレーム数
+		delay   = 8     // 10ms単位でのフレーム間の遅延
 	)
 	freq := rand.Float64() * 3.0 // 発振器ｙの相対周波数
 	anim := gif.GIF{LoopCount: nframes}
@@ -38,10 +42,10 @@ func lissajous(out io.Writer) {
 	for i := 0; i < nframes; i++ {
 		rect := image.Rect(0, 0, 2*size+1, 2*size+1)
 		img := image.NewPaletted(rect, palette)
-		for t := 0.0; t < cycles*2math.Pi; t += res {
+		for t := 0.0; t < cycles*2*math.Pi; t += res {
 			x := math.Sin(t)
 			y := math.Sin(t*freq + phase)
-			img.SetColorIndex(size+int(x*size+0.5), size+int(y*size+0.5), blackIndex)
+			img.SetColorIndex(size+int(x*size+0.5), size+int(y*size+0.5), uint8(rand.Intn(len(palette))))
 		}
 		phase += 0.1
 		anim.Delay = append(anim.Delay, delay)
