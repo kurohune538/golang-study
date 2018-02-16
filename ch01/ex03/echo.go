@@ -8,20 +8,20 @@ import (
 )
 
 func main() {
-	var num int = 10
-	var s string = "s"
+	num := 1000
+	s := "s"
 	start := time.Now()
 	for i := 1; i < num; i++ {
-		s += s
+		s += "s"
 	}
-	end := time.Since(start).Seconds()
-	fmt.Print(end)
+	end := time.Now()
+	fmt.Println(fmt.Sprintf("%.5f 秒", end.Sub(start).Seconds()))
 
 	start2 := time.Now()
 	ss := []string{}
 	for i := 1; i < num; i++ {
 		strings.Join(ss, "s")
 	}
-	end2 := time.Since(start2).Seconds()
-	fmt.Sprintf("%d秒", end2)
+	end2 := time.Now()
+	fmt.Println(fmt.Sprintf("%.5f 秒", end2.Sub(start2).Seconds()))
 }
